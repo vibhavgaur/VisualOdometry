@@ -5,7 +5,7 @@ from extractor import Extractor
 
 cap = cv2.VideoCapture('../DrivingVideo.mp4')
 cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
-# cap.set(cv2.CAP_PROP_BUFFERSIZE,10)
+cap.set(cv2.CAP_PROP_BUFFERSIZE,10)
 W, H = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)), int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 imgScalingFactor = 2
 print("Number of frames in video: ", cap.get(cv2.CAP_PROP_FRAME_COUNT),"\n","Frame size: ", W, H)
@@ -14,7 +14,7 @@ ext = Extractor()
 
 while(cap.isOpened()):
     ret, frame = cap.read()
-    frame = cv2.resize(frame, (W//4, H//4))
+    frame = cv2.resize(frame, (W//imgScalingFactor, H//imgScalingFactor))
     if ret:
         kps = ext.detectFeatures(frame)
         ext.matchFeatures(frame, kps)
